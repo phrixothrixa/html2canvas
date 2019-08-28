@@ -146,7 +146,12 @@ export class DocumentCloner {
                                     })
                             )
                             .then(dataUri => {
-                                font.fontFace.setProperty('src', `url("${dataUri}")`);
+                                // firefox doesn't support setProperty for fontFace https://codepen.io/bramstein/pen/Bkctp
+                                try {
+                                    font.fontFace.setProperty('src', `url("${dataUri}")`);
+                                } catch (e) {
+
+                                }
                                 return `@font-face {${font.fontFace.cssText} `;
                             })
                     )
